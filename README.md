@@ -1,3 +1,26 @@
+# Sentiment Analysis SaaS
+
+A 5-day MVP for an AI-powered customer feedback and sentiment analysis platform.
+
+## Day 1: Project Initialization
+- Set up Vite + React project.
+- Initialized Git repository and pushed to GitHub under FuAdd21.
+
+## Next Steps
+- Day 1: UI/UX design, component scaffolding, and deployment setup.
+- Day 2: Backend and database integration.
+- Day 3: AI sentiment analysis integration.
+- Day 4: Data visualization and dashboard.
+- Day 5: Multi-channel input, testing, and final deployment.
+
+## Tools Used
+- Code Editor: VS Code
+- Version Control: Git & GitHub
+- Frontend Framework: React with Vite
+
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
