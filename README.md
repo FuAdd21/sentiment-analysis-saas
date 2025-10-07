@@ -6,12 +6,13 @@ A 5-day MVP for an AI-powered customer feedback and sentiment analysis platform,
 - Set up Vite + React project with Tailwind CSS v4 and shadcn/ui.
 - Initialized Git repository and pushed to GitHub under FuAdd21.
 - Created components: Header, FeedbackForm, ResultsDisplay, SentimentScore, ChartWidget with @ alias for shadcn/ui imports.
+- Added optional enhancement: Dropdown in FeedbackForm for feedback source (moved from Day 5).
 - Fixed shadcn/ui alias issue with vite.config.js and tsconfig.json.
-- Deployed to Vercel with continuous deployment: [Live URL](https://sentiment-analysis-saas.vercel.app) .
+- Deployed to Vercel with continuous deployment: [Live URL](https://sentiment-analysis-saas.vercel.app) (replace with actual URL).
 
 ## Features (Day 1)
 - **Header**: Navigation bar with branding and Dashboard button.
-- **Feedback Form**: Input field for submitting customer feedback (to be connected to backend on Day 2).
+- **Feedback Form**: Input field and dropdown for feedback source (Email, Website, Phone) (to be connected to backend on Day 2).
 - **Results Display**: Placeholder for sentiment analysis results, including sentiment score and chart widgets.
 - **Styling**: Modern, responsive design using Tailwind CSS v4 and shadcn/ui components.
 
@@ -28,7 +29,6 @@ A 5-day MVP for an AI-powered customer feedback and sentiment analysis platform,
 - Styling: Tailwind CSS v4
 - UI Components: shadcn/ui
 - Deployment: Vercel
-
 
 # React + Vite
 
