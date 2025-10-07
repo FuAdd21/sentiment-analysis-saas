@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
 import FeedbackForm from './components/FeedbackForm';
-import ResultsDisplay from './components/ResultsDisplay';
+import ResultDisplay from './components/ResultDisplay';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Header />
       <main className="flex-grow flex flex-col items-center p-4">
         <FeedbackForm />
-        <ResultsDisplay />
+        <ResultDisplay />
       </main>
       <footer className="bg-blue-600 text-white p-4 text-center">
         <p>&copy; 2025 Sentiment Analysis SaaS - Built for Client</p>
