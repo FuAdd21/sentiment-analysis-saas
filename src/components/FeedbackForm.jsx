@@ -8,10 +8,21 @@ function FeedbackForm() {
   const [feedback, setFeedback] = useState('');
   const [source, setSource] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Feedback submitted:', { feedback, source });
-    // Placeholder for API call
+    try {
+      const response = await fetch('http://localhost:3000/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ feedback, source }),
+      });
+      const data = await response.json();
+      console.log('Success:', data);
+      setFeedback('');
+      setSource('');
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
