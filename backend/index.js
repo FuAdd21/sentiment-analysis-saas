@@ -1,60 +1,42 @@
-const express = require('express');
-const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
+import express from "express";
+import sqlite3 from "sqlite3";
+import { open } from "sqlite";
+import cors from "cors";
 
 const app = express();
-
-// Middleware
+app.use(cors());
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:5173' })); // Adjust for Vercel URL later
 
-// Initialize SQLite database
-const db = new sqlite3.Database('feedback.db', (err) => {
-  if (err) console.error('Database error:', err.message);
-  else {
-    // Create feedback table if it doesn't exist
-    db.run(`
-      CREATE TABLE IF NOT EXISTS feedback (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        feedback TEXT,
-        source TEXT,
-        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-        sentiment TEXT
-      )
-    `);
-    console.log('Database connected and table created');
-  }
-});
+// Connect to SQLite database (ephemeral on Vercel)
+let db;
 
-// API endpoint to save feedback
-app.post('/api/feedback', (req, res) => {
-  const { feedback, source } = req.body;
-  if (!feedback || !source) {
-    return res.status(400).json({ error: 'Feedback and source are required' });
-  }
-  db.run(
-    'INSERT INTO feedback (feedback, source) VALUES (?, ?)',
-    [feedback, source],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: 'Failed to save feedback' });
-      } else {
-        res.status(201).json({ id: this.lastID, message: 'Feedback saved' });
-      }
-    }
-  );
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-// Close database connection on process exit
-process.on('SIGINT', () => {
-  db.close((err) => {
-    if (err) console.error('Error closing database:', err.message);
-    console.log('Database connection closed');
-    process.exit(0);
+(async () => {
+  db = await open({
+    filename: "./backend/feedback.db",
+    driver: sqlite3.Database,
   });
+
+  await db.exec(`CREATE TABLE IF NOT EXISTS feedback (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    message TEXT,
+    sentiment TEXT
+  )`);
+})();
+
+// Routes
+app.post("/api/feedback", async (req, res) => {
+  const { message, sentiment } = req.body;
+  await db.run("INSERT INTO feedback (message, sentiment) VALUES (?, ?)", [
+    message,
+    sentiment,
+  ]);
+  res.json({ success: true });
 });
+
+app.get("/api/feedback", async (req, res) => {
+  const rows = await db.all("SELECT * FROM feedback");
+  res.json(rows);
+});
+
+// Export as Vercel serverless handler
+export default app;
